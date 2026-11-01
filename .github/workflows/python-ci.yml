@@ -1,5 +1,7 @@
 name: Python CI Pipeline
 
+# Trigger the workflow when code is pushed
+# or a pull request is created for main
 on:
   push:
     branches:
@@ -9,11 +11,15 @@ on:
     branches:
       - main
 
+# Define jobs
 jobs:
   test:
+    # GitHub-hosted Ubuntu runner
     runs-on: ubuntu-latest
 
+    # Steps to execute
     steps:
+
       # Step 1: Download repository code
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -28,6 +34,10 @@ jobs:
       - name: Install Dependencies
         run: python -m pip install pytest
 
-      # Step 4: Run automated tests
+      # Step 4: Display Python version
+      - name: Display Python Version
+        run: python --version
+
+      # Step 5: Run automated tests
       - name: Run Pytest
         run: python -m pytest -v
